@@ -7,7 +7,7 @@ import (
 	openai "github.com/sashabaranov/go-openai"
 )
 
-var client = openai.NewClient(config.Envs.API_KEY)
+var client = openai.NewClient(config.Envs.CHATGPT_API_KEY)
 
 func ChatCompletion(content string) (*openai.ChatCompletionMessage, error) {
 	resp, err := client.CreateChatCompletion(
