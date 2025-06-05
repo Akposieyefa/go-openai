@@ -8,17 +8,22 @@ import (
 	"github.com/akposieyefa/open-ai/pkg/hash"
 )
 
-func ChangeUserPassword(oldPassword string, password string, r *http.Request) {
+func ChangeUserPassword(oldPassword string, password string, r *http.Request) error {
 
 	_, err := hash.HashPassword(password)
-
-	_, err := auth.AuthUser(r)
 	if err != nil {
-		return nil, err
+		fmt.Println("Error hashing the password:", err)
+		return err
 	}
 
+	_, err = auth.AuthUser(r)
 	if err != nil {
-		fmt.Println("Sorry there was an error hashing the password")
+		fmt.Println("Authentication failed:", err)
+		return err
 	}
 
+	// Proceed with changing the password in the DB (not implemented here)
+	fmt.Println("Password change logic goes here")
+
+	return nil
 }
